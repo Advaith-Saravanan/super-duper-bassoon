@@ -1,0 +1,32 @@
+import random
+import string
+
+# ANSI Colors
+GREEN = '\033[92m'
+CYAN = '\033[96m'
+RED = '\033[91m'
+RESET = '\033[0m'
+
+def generate_password(length=12, use_digits=True, use_symbols=True):
+    characters = string.ascii_letters  # a–z, A–Z
+    if use_digits:
+        characters += string.digits     # 0–9
+    if use_symbols:
+        characters += string.punctuation  # !@#$...
+
+    if length < 6:
+        print(f"{RED}⚠️ Password too short. Minimum is 6 characters.{RESET}")
+        return ""
+
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
+
+# ✨ Interactive Menu
+print(f"{CYAN}🔐 Welcome to the Password Generator!{RESET}")
+length = int(input("🔢 Enter password length (e.g. 12): "))
+use_digits = input("🔢 Include digits? (yes/no): ").lower() == 'yes'
+use_symbols = input("🔣 Include symbols? (yes/no): ").lower() == 'yes'
+
+password = generate_password(length, use_digits, use_symbols)
+if password:
+    print(f"\n{GREEN}Your secure password: {password}{RESET}")
